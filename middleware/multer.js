@@ -12,3 +12,5 @@ module.exports = multer({
     cb(null, true);
   },
 });
+
+// middleware for handling file uploads to a social page

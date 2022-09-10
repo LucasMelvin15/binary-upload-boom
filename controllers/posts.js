@@ -4,24 +4,25 @@ const Post = require("../models/Post");
 module.exports = {
   getProfile: async (req, res) => {
     try {
-      const posts = await Post.find({ user: req.user.id });
-      res.render("profile.ejs", { posts: posts, user: req.user });
+      const posts = await Post.find({ user: req.user.id }); //create a posts array that goes into the Posts collection to find users with the id
+      res.render("profile.ejs", { posts: posts, user: req.user }); //rendering the posts and user
+      // profile.ejs renders the username and email and a form that handles users new posts
     } catch (err) {
       console.log(err);
     }
   },
   getFeed: async (req, res) => {
     try {
-      const posts = await Post.find().sort({ createdAt: "desc" }).lean();
-      res.render("feed.ejs", { posts: posts });
+      const posts = await Post.find().sort({ createdAt: "desc" }).lean(); // go to the Post collection and sort in descending order so its a query to return all the post collection .lean()- returns a javascript object instead of a mongo document
+      res.render("feed.ejs", { posts: posts });// rendering the feedjs after getting all the posts that loops thru the posts by id and images.
     } catch (err) {
       console.log(err);
     }
   },
   getPost: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id);
-      res.render("post.ejs", { post: post, user: req.user });
+      const post = await Post.findById(req.params.id); // goes to the post collection to find by id 
+      res.render("post.ejs", { post: post, user: req.user }); //
     } catch (err) {
       console.log(err);
     }

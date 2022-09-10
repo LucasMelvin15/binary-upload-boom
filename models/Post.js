@@ -32,3 +32,6 @@ const PostSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Post", PostSchema);
+
+
+//post collection that takes in id, image, likes, caption created by and deleted
