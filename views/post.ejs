@@ -1,12 +1,8 @@
 <%- include('partials/header') -%>
 <div class="container">
   <div class="row justify-content-center mt-5">
-    <div class="col-6"> 
-      <% if ( post.user == user.id){ %>
-        <h2><%= user.userName %></h2> 
-     <% } %>
-        
-     
+    <div class="col-6">
+      <h2><%= post.title %></h2>
       <img class="img-fluid" src="<%= post.image%>" />
       <div class="row justify-content-between">
         <form
@@ -16,7 +12,6 @@
         >
           <button class="btn btn-primary fa fa-heart" type="submit"></button>
         </form>
-        <h2><%= post.title %></h2>
         <h3 class="col-3">Likes: <%= post.likes %></h3>
         <%if(post.user == user.id){ %>
         <form
@@ -32,11 +27,45 @@
     <div class="col-3 mt-5">
       <p><%= post.caption %></p>
     </div>
+
+		<!-- post.comments gives us array of comments -->
+		<div class="container">
+			<div class="row justify-content-center mt-5">
+				<ul class="row list-unstyled">
+					<% for(var i=0; i<post.comments.length; i++) {%>
+						<li class="col-6 justify-content-between mt-5">
+							<h4>
+								<%= post.comments[i].title%>
+							</h4>
+							<p>
+								<%= post.comments[i].body%>
+							</p>
+						</li>
+					<% } %>
+				</ul>
+
+				<form
+          class="col-1"
+          action="/post/createComment/<%= post.id %>"
+          method="POST"
+        >
+					<label for="title">title</label>
+					<input type="text" name="title" id="title" placeholder="add title here">
+					<label for="body">body</label>
+					<input type="text" name="body" id="body" placeholder="add comment here">
+          <button class="btn btn-primary" type="submit" >
+						post comment
+					</button>
+        </form>
+			</div>
+		</div> 
+
     <div class="col-6 mt-5">
       <a class="btn btn-primary" href="/profile">Return to Profile</a>
       <a class="btn btn-primary" href="/feed">Return to Feed</a>
     </div>
   </div>
 </div>
+
 
 <%- include('partials/footer') -%>
