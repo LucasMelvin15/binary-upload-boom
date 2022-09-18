@@ -27,38 +27,26 @@
     <div class="col-3 mt-5">
       <p><%= post.caption %></p>
     </div>
-
-		<!-- post.comments gives us array of comments -->
-		<div class="container">
-			<div class="row justify-content-center mt-5">
-				<ul class="row list-unstyled">
-					<% for(var i=0; i<post.comments.length; i++) {%>
-						<li class="col-6 justify-content-between mt-5">
-							<h4>
-								<%= post.comments[i].title%>
-							</h4>
-							<p>
-								<%= post.comments[i].body%>
-							</p>
-						</li>
-					<% } %>
-				</ul>
-
-				<form
-          class="col-1"
-          action="/post/createComment/<%= post.id %>"
-          method="POST"
-        >
-					<label for="title">title</label>
-					<input type="text" name="title" id="title" placeholder="add title here">
-					<label for="body">body</label>
-					<input type="text" name="body" id="body" placeholder="add comment here">
-          <button class="btn btn-primary" type="submit" >
-						post comment
-					</button>
-        </form>
-			</div>
-		</div> 
+     
+    <div class="mt-5">
+      <h2>Add a comment</h2>
+      <form action="/comment/createComment/<%=post._id%>"  method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Comment</label>
+            <input type="text" class="form-control" id="comment" name="comment">
+        </div>
+      
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <ul >
+      <% for(var i=0; i<comments.length; i++) {%>
+        <li class="col-6 justify-content-between mt-5">
+            <%= comments[i].comment%>
+          
+        </li>
+      <% } %>
+      </ul>
 
     <div class="col-6 mt-5">
       <a class="btn btn-primary" href="/profile">Return to Profile</a>
