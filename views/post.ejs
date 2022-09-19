@@ -3,6 +3,7 @@
   <div class="row justify-content-center mt-5">
     <div class="col-6">
       <h2><%= post.title %></h2>
+     <h2> <%= user.userName%></h2>
       <img class="img-fluid" src="<%= post.image%>" />
       <div class="row justify-content-between">
         <form
@@ -42,7 +43,15 @@
     <ul >
       <% for(var i=0; i<comments.length; i++) {%>
         <li class="col-6 justify-content-between mt-5">
-            <%= comments[i].comment%>
+          <span><%= comments[i].createdBy%> says: "<%= comments[i].comment%>" 
+            <br> <%if(comments[i].createdById == user.id){ %>
+                  <form
+                    action="/comment/deleteComment/<%=post._id%>/<%= comments[i]._id %>?_method=DELETE"
+                    method="POST"
+                    >
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                  </form>
+                  <%}%>
           
         </li>
       <% } %>
